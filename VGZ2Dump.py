@@ -2,6 +2,7 @@ import os
 import gzip
 import shutil
 import platform
+import subprocess
 is_windows = os.name == "nt" or platform.system() == "Windows"
 custom_folder_name = False
 predetermined_folder_name = ""
@@ -69,9 +70,9 @@ multidumper_path = os.path.abspath("../dumputil/multidumper.exe")
 target_file = os.path.basename(vgm_path)
 
 if is_windows:
-    os.system(f"\"{multidumper_path}\" \"{target_file}\"")
+    subprocess.run([multidumper_path, target_file], check=True)
 else:
-    os.system(f"wine \"{multidumper_path}\" \"{target_file}\"")
+    subprocess.run(["wine", multidumper_path, target_file], check=True)
 
 os.remove(target_file)
 
