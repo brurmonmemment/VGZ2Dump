@@ -1,13 +1,14 @@
 import os
 import gzip
 import shutil
-
+import platform
+is_windows = os.name == "nt" or platform.system() == "Windows"
 custom_folder_name = False
 predetermined_folder_name = ""
 file = ""
 folder_name = ""
 
-print("VGZ2Dump v1.0")
+print("VGZ2Dump v1.0.1")
 print("Powered by multidumper by maxim-zhao")
 print("This script is designed to turn a .vgz or .vgm.gz file (more specifically a Sega Genesis soundtrack) into a folder with dumps of the PSG/YM2612.")
 
@@ -67,7 +68,10 @@ os.chdir(folder_name)
 multidumper_path = os.path.abspath("../dumputil/multidumper.exe")
 target_file = os.path.basename(vgm_path)
 
-os.system(f"wine \"{multidumper_path}\" \"{target_file}\"")
+if is_windows:
+    os.system(f"\"{multidumper_path}\" \"{target_file}\"")
+else:
+    os.system(f"wine \"{multidumper_path}\" \"{target_file}\"")
 
 os.remove(target_file)
 
