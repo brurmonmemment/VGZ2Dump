@@ -1,4 +1,4 @@
-# VGZ2Dump
+# VGMHelper
 # small wrapper script around multidumper
 
 import os, sys, gzip, shutil, subprocess, platform
@@ -55,18 +55,18 @@ def run_md():
 # windos check
 is_windows = os.name == "nt" or platform.system() == "Windows"
 
-print("VGZ2Dump v1.0.3")
-print("Powered by multidumper by maxim-zhao")
-print("This script converts a .vgz or .vgm.gz file into a folder with dumps of the PSG/YM2612 channels.")
+print("VGMHelper v1.0.3")
+print()
+print("A small multidumper wrapper that also manages VGM-type files (vgm, vgm.gz, vgz).")
     
 file_path = None
 if len(sys.argv) == 2:
     file_path = check_path(sys.argv[1].strip())
 elif len(sys.argv) == 1:
-    file_path = check_path(input("Please put in the path of the file you would like to convert: ").strip())
+    file_path = check_path(input("No path specified. Please put one here: ").strip())
 else:
-    print("usage:")
-    print(" python VGZ2Dump.py <file path>")
+    print("Usage:")
+    print(" python VGMHelper.py <file path>")
     sys.exit(1)
 
 
@@ -77,7 +77,7 @@ folder_name = os.path.splitext(os.path.basename(file_path))[0]
 if not os.path.exists(folder_name):
     os.makedirs(folder_name)
 else:
-    print(f"folder '{folder_name}' already exists! all extracted data in the folder will be overridden. ya have nobody to blame but yourself.")
+    print(f"WARNING: Folder '{folder_name}' already exists. All extracted data in the folder may be overridden.")
 
 # file the stuff
 local_copy = os.path.join(folder_name, os.path.basename(file_path))
